@@ -1,0 +1,23 @@
+<%= form_for @user do |u| %>
+  <% if @user.errors.any? %>
+    <div class="row">
+      <div class="alert alert-error span8">
+        <h5>Please fix the following errors:</h5>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %> </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class='control-group'>
+    <%= u.label :username %>
+    <%= u.text_field :username %>
+  </div>
+  <div class='control-group'>
+    <%= u.label :password %>
+    <%= u.text_field :password %>
+  </div>
+    <%= u.submit @user.new_record? ? "Register" : "Update Profile", class: "btn btn-success" %>
+<% end %>
