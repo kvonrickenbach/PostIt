@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_filter :find_post, only: [:show, :edit, :update]
+  before_filter :require_user, only: [:new, :create, :edit, :update]
 
   def index
     @posts = Post.all
@@ -16,7 +17,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(params[:post])
     
-    @post.user_id = 1
+    @post.user = current_user
     if @post.save
       redirect_to posts_path, notice: "Your post was created successfully!"
     else #validation failure
